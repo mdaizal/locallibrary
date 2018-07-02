@@ -115,7 +115,7 @@ class BookInstance(models.Model):
 
     def __str__(self):
         """Unicode representation of BookInstance."""
-        #return '{0} ({1})'.format(self.id,self.book.title) # Python 3.5
+        # return '{0} ({1})'.format(self.id,self.book.title) # Python 3.5
         return f'{self.id} ({self.book.title})' # Python 3.6 above can use this new string interpolation syntax
 
 class Author(models.Model):
