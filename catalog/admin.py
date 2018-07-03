@@ -8,33 +8,43 @@ from .models import Author, Book, BookInstance, Genre, Language
 admin.site.register(Genre)
 admin.site.register(Language)
 
+
 class BookInline(admin.TabularInline):
     '''Tabular Inline View of Book for Author detail view'''
     model = Book
     extra = 0
 
 # Define the admin class
+
+
 class AuthorAdmin(admin.ModelAdmin):
     '''Admin View for Author'''
-    list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
+    list_display = ('last_name', 'first_name',
+                    'date_of_birth', 'date_of_death')
     fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
     inlines = [BookInline]
+
 
 # Register the admin class with the associated model
 admin.site.register(Author, AuthorAdmin)
 
-# Register Admin classes for Book and Book Instance using @register decorater instead of admin.site.register()
+# Register Admin classes for Book and Book Instance using @register decorater
+# instead of admin.site.register()
 # for learning purpose
+
+
 class BookInstanceInline(admin.TabularInline):
     '''Tabular Inline View of Book Instance for Book View'''
     model = BookInstance
-    extra = 0 # to make sure no extra instance field generated
-    classes = ['collapse'] # to make the field in collapse state with a 'show' button
+    extra = 0  # to make sure no extra instance field generated
+    # to make the field in collapse state with a 'show' button
+    classes = ['collapse']
+
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     '''Admin View for Book'''
-    list_display = ('title', 'author', 'display_genre')
+    list_display = ('title', 'author', 'display_genre', 'display_language')
     fieldsets = (
         (None, {
             'fields': (
@@ -47,6 +57,7 @@ class BookAdmin(admin.ModelAdmin):
         }),
     )
     inlines = [BookInstanceInline]
+
 
 @admin.register(BookInstance)
 class BookInstanceAdmin(admin.ModelAdmin):
