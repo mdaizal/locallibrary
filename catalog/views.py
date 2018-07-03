@@ -19,6 +19,10 @@ def index(request):
     # Tutorial Challenge completed
     count_of_genres = Genre.objects.count()
     blood_book = Book.objects.filter(title__icontains='blood').count()
+
+    # Sessions
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
     # Render the HTML template index.html with the data in the context variable
     return render(
         request,
@@ -27,7 +31,7 @@ def index(request):
             'num_books': num_books, 'num_instances': num_instances,
             'num_instances_available': num_instances_available,
             'num_authors': num_authors, 'count_of_genres': count_of_genres,
-            'blood_book': blood_book,
+            'blood_book': blood_book, 'num_visits': num_visits,
         },
     )
 
