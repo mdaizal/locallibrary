@@ -55,7 +55,7 @@ ROOT_URLCONF = 'locallibrary.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,3 +120,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # admin: u: mdaizal, p: 123.admin
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/'
+
+# Website must support email. So, for testing purpose:
+# This logs any emails sent to the console (so you can copy the password reset
+# link from the console).
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
