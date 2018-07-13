@@ -1,6 +1,8 @@
 from django.db import models
 # Used to generate URLs by reversing the URL patterns
 from django.urls import reverse
+from django.contrib.auth.models import User
+from datetime import date
 import uuid  # Required for unique book instances
 
 # Create your models here.
@@ -129,6 +131,9 @@ class BookInstance(models.Model):
         blank=True, default='m', help_text='Book availability'
     )
 
+    borrower = models.ForeignKey(
+        User, on_delete=models.SET_NULL, null=True, blank=True)
+
     class Meta:
         ordering = ["due_back"]
 
@@ -137,6 +142,12 @@ class BookInstance(models.Model):
         # return '{0} ({1})'.format(self.id,self.book.title) # Python 3.5
         # Python 3.6 above can use this new string interpolation syntax
         return f'{self.id} ({self.book.title})'
+
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
 
 
 class Author(models.Model):
