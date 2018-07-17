@@ -4,7 +4,11 @@
 {% if bookinstance_list %}
 <ul>
     {% for book in bookinstance_list %}
-    <li>{{ book.book.title }} - {{ book.due_back }}, {{ book.borrower }}</li>
+    <li>{{ book.book.title }}
+        <span class="{% if book.is_overdue %}text-danger{% endif %}">
+            ({{ book.due_back }})
+        </span> - {{ book.borrower }}
+    </li>
     {% endfor %}
 </ul>
 {% endif %} {% endblock content %}
